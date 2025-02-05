@@ -26,6 +26,7 @@ app.use(session({
     resave:true, /***Permite mantener la session activa. En false la session muere luego de cierto tiempo */
     saveUninitialized:true /***Permite guardar una session aunque no contenga nada */
 }))
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/products',productsRouter);
