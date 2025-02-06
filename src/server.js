@@ -4,9 +4,11 @@ import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import passport from 'passport';
+import { engine } from 'express-handlebars';
 import initializatePassport from './config/passport.config.js';
 import sessionRouter from './routes/session.routes.js';
 import productsRouter from './routes/products.routes.js';
+import viewsRouter from './routes/views.routes.js';
 import cartRouter from './routes/carts.routes.js';
 import __dirname from './path.js';
 
@@ -14,6 +16,11 @@ import __dirname from './path.js';
 const app = express();
 const PORT = 8080;
 initializatePassport();
+app.engine('handlebars',engine());
+app.set('views',__dirname+'/views');
+app.set('view engine','handlebars');
+app.use('/public',express.static(__dirname+'/public'));
+
 
 app.use(express.json());
 app.use(cookieParser("SecretCode")) /**Para utilizar cookies */
@@ -32,6 +39,7 @@ app.use(passport.session());
 app.use('/api/products',productsRouter);
 app.use('/api/carts',cartRouter);
 app.use('/api/sessions',sessionRouter);
+app.use('/',viewsRouter);
 
 /** Vinculo a la db */
 mongoose.connect('mongodb+srv://roselliomar82:piperpa11@disqueria.ngm69.mongodb.net/?retryWrites=true&w=majority&appName=disqueria')

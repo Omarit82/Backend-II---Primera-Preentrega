@@ -10,7 +10,7 @@ export const login = async(req,res)=>{
         req.session.email = user.email
         req.session.first_name = user.first_name
         req.session.last_name = user.last_name
-        return res.status(200).send({message:"login exitoso"})
+        return res.status(200).redirect('/')
     } catch (error) {
         res.status(500).send({message:"Error al loguear usuario", Error:error})
     }
@@ -30,14 +30,12 @@ export const register = async(req, res) => {
 export const githubLogin = (req,res) => {
     try {
         const user = req.user;
-        if(!req.user){
-            return res.status(401).send({message:"Usuario o contraseña incorrectos"})
+        
+        req.session.user = {
+            email:req.user.email,
+            first_name: req.user.first_name
         }
-        req.session.log = true;
-        req.session.email = user.email
-        req.session.first_name = user.first_name
-        req.session.last_name = user.last_name
-        return res.status(200).send({message:"login exitoso"})
+        return res.status(200).redirect("/")
     } catch (error) {
         res.status(500).send({message:"Error al loguear usuario", Error:error})
     }

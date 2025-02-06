@@ -20,7 +20,7 @@ export const getProducts = async (req,res) => {
     try {
         const { limit,page,metFilter,filter,metOrder, order} = req.query;
         const pag = page !== undefined ? page:1;
-        const lim = limit !== undefined ? limit:10;
+        const lim = limit !== undefined || limit !== null ? limit:8;
         const filQuery = metFilter !== undefined ? {[metFilter]:filter}:{};
         const ordQuery = metOrder !== undefined ? {metOrder: order}:{};
 

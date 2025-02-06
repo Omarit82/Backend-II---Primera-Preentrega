@@ -2,7 +2,7 @@ import passport from "passport"
 import local from "passport-local";
 import GithubStrategy from "passport-github2";
 import { encriptar,desencriptar } from "../utils/bcrypt.js";
-import userModel from "../models/sessions.model.js";
+import userModel from "../models/users.model.js";
 
 const localStrategy = local.Strategy
 
@@ -26,7 +26,7 @@ const initializatePassport = () => {
             }
            
         } catch (error) {
-            return done(e)
+            return done(error)
         }
         
 
@@ -44,19 +44,21 @@ const initializatePassport = () => {
     }))
     passport.use('github',new GithubStrategy({
         clientID:"Iv23litqAUVWDwraaDwo",
-        clientSecret:"",
-        callbackURL: ""
+        clientSecret:"063969ba7834edb0c40f5865c3f43e4719f4bb0a",
+        callbackURL: "http://localhost:8080/api/sessions/githubcallback"
     },async(accessToken,refreshToken,profile,done)=>{
         try {
-            console.log(profile);
-            console.log(accessToken);
-            console.log(refreshToken);
             let user = await userModel.findOne({email: profile._json.email})
+            console.log(profile)
             if(!user){
-                let newUser = {
-
-                }
-                done(null,true)
+                const user = await userModel.create({
+                    first_name:profile._json.name,
+                    last_name:" ", // Dato no proporcionado
+                    email:profile._json.email,
+                    password:'1234', //Dato no proporcionado
+                    age:18 //Dato no proporcionado
+                })
+                done(null,user)
             }else{
                 done(null, user)
             }

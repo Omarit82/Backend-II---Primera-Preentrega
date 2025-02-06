@@ -1,0 +1,21 @@
+<h2 class="text-center m-4">Your next purchase:</h2>
+
+<div class="m-auto individual" >
+    <div class="card-body">
+        <h5 class="card-title text-center mb-2">{{product.title}}</h5>
+        <hr/>
+        <p class="card-text">Autor: {{product.autor}}</p>
+        <p class="card-text">Genere: {{product.genere}}</p>
+        <p class="card-text">Year: {{product.year}}</p>
+        <div class="d-flex justify-content-between">
+            <p class="card-text">Price:${{product.price}}</p>
+            <p class="card-text">Stock available: {{product.stock}}</p>
+        </div>
+        <form action="" class="d-flex flex-column w-50 m-auto">
+            <label for="quantity" class="m-auto">Quantity</label>
+            <input type="number" class="m-auto mt-3 mb-3 w-25" min="1" max="{{product.stock}}" required>
+            <a href="/product/{{product._id}}" class="m-auto"><button type="submit" class="btn btn-primary">Add to cart!</button></a>
+        </form>
+        
+    </div>
+</div>

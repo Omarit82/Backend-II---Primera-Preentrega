@@ -1,0 +1,34 @@
+<h2 class="text-center">Nuestros discos:</h2>
+<div class="d-flex flex-wrap justify-content-around">
+    {{#each products.docs}}
+    <div class="card m-1" >
+        <img src="" class="card-img-top" alt="">
+        <div class="card-body">
+            <h5 class="card-title">{{title}}</h5>
+            <p class="card-text">Autor: {{autor}}</p>
+            <p class="card-text">Year: {{year}}</p>
+            <a href="/product/{{_id}}" class="btn btn-primary m-auto">View more</a>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<!--Paginacion-->
+<nav aria-label="Page Navigation">
+    <ul class="pagination justify-content-center">
+        {{#if products.hasPrevPage}}
+        <li class="page-item">
+            <a class="page-link" href="?page={{products.prevPage}}" arial-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        {{/if}}
+        {{#each products.pageNumbers}}
+        <li class="page-item {{#if this.isCurrent}}active {{/if}}">
+            <a class="page-item" href="?page={{this.number}}">{{this.number}}</a>
+        </li>
+        {{/each}}
+        {{#if products.hasNextPage}}
+        <li class="page-item">
+            <a href="?page={{products.nextPage}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        {{/if}}
+    </ul>
+</nav>

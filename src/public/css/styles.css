@@ -1,0 +1,56 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color:white;
+}
+.individual{
+        width: 500px;
+}
+.card-body {
+    background-color: white;
+    border-radius: 15px;
+    border: solid 2px orange;
+    padding: 10px;
+    display:flex;
+    flex-direction: column;
+}
+.card{
+    border-radius: 15px;
+}
+hr{
+    height: 2px;
+    width: 75%;
+    margin:auto;
+    color:black;
+}
+
+header, footer{
+    background-color: orange;
+    color: white;
+}
+#thumbnail{
+    display:none;
+}
+
+.title {
+    padding: 15px;
+}
+
+body {
+    background-color: rgb(255, 229, 180);
+    color: rgb(230, 149, 0);
+}
+
+.card{
+    width: 20%;
+}
+
+footer {
+    min-height: 250px;
+    margin-top: 50px;
+}
