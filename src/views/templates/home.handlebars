@@ -27,7 +27,7 @@
         {{/each}}
         {{#if products.hasNextPage}}
         <li class="page-item">
-            <a class="page-link" href="?page={{products.nextPage}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            <a class="page-link" href="?page={{products.nextPage}}&limit={{products.limit}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
         </li>
         {{/if}}
     </ul>
