@@ -22,12 +22,12 @@
         {{/if}}
         {{#each products.pageNumbers}}
         <li class="page-item {{#if this.isCurrent}}active {{/if}}">
-            <a class="page-item" href="?page={{this.number}}">{{this.number}}</a>
+            <a class="page-link" href="?page={{this.number}}">{{this.number}}</a>
         </li>
         {{/each}}
         {{#if products.hasNextPage}}
         <li class="page-item">
-            <a href="?page={{products.nextPage}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            <a class="page-link" href="?page={{products.nextPage}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
         </li>
         {{/if}}
     </ul>
