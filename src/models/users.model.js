@@ -32,11 +32,12 @@ const userShema = new Schema({
         ref:"carts"
     }
 })
-userShema.post("save",async(user)=>{
+userShema.post("save",async(doc)=>{
     try {
-        const newCart = await cartModel.create({products:[]})
-        user.cart = newCart._id
-        await user.save();
+        if(!doc.cart){
+            const newCart = await cartModel.create({products:[]})
+            await model("users").findByIdAndUpdate(doc._id,{cart:newCart._id});
+        }
     } catch (error) {
         console.log("Error creating cart",error)
     }
