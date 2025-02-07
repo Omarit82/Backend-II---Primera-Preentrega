@@ -1,12 +1,49 @@
 import passport from "passport"
 import local from "passport-local";
+import jwt, { ExtractJwt } from "passport-jwt";
 import GithubStrategy from "passport-github2";
 import { encriptar,desencriptar } from "../utils/bcrypt.js";
 import userModel from "../models/users.model.js";
 
 const localStrategy = local.Strategy
+const JWTStrategy = jwt.Strategy;
+const ExtractJWT = ExtractJwt;
+
+const cookieExtractor = (req) => {
+    let token = null;
+    if(req && req.cookies){
+        token = req.cookies['coderCookie']
+    }
+    return token
+}
+
+export const passportCall = (strategy) => {
+    return async(req,res,next) => {
+        passport.authenticate(strategy,function(err,user, info){
+            if (err)
+                return next(err)
+            if(!user){
+                return res.status(401).send({error: info.messages?info.messages:info.toString()})
+            }
+            req.user =user
+            next()
+        }, (req,res,next))
+    }
+}
 
 const initializatePassport = () => {
+    passport.use('jwt', new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+        secretOrKey:"codercoder",
+
+    }, async(jwt_payload, done)=>{
+        try {
+            return done(null, jwt_payload)
+        } catch (error) {
+            return done(error)
+        }
+    }))
+
     passport.use('register',new localStrategy({passReqToCallback:true,usernameField:'email'}, async(req,username,password,done) => {
         try {
             const {first_name, last_name,email,password,age} = req.body;
@@ -43,8 +80,8 @@ const initializatePassport = () => {
         }
     }))
     passport.use('github',new GithubStrategy({
-        clientID:"Iv23litqAUVWDwraaDwo",
-        clientSecret:"063969ba7834edb0c40f5865c3f43e4719f4bb0a",
+        clientID:"",
+        clientSecret:"",
         callbackURL: "http://localhost:8080/api/sessions/githubcallback"
     },async(accessToken,refreshToken,profile,done)=>{
         try {

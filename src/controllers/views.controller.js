@@ -3,7 +3,7 @@ import productsModel from "../models/products.model.js"
 export const viewHome = async (req, res) =>{
     const { limit,page,metFilter,filter,metOrder, order} = req.query;
     const pag = page !== undefined ? page:1;
-    const lim = limit !== undefined || limit !== null ? limit:8;
+    const lim = limit !== undefined || limit !== null ? limit:10;
     const filQuery = metFilter !== undefined ? {[metFilter]:filter}:{};
     const ordQuery = metOrder !== undefined ? {metOrder: order}:{};
     
@@ -12,7 +12,6 @@ export const viewHome = async (req, res) =>{
         number: i + 1,
         isCurrent: i + 1 === products.page
     }))
-    console.log(products)
     res.status(200).render('templates/home',{products:products,css:'styles.css'})
 }
 
@@ -29,8 +28,7 @@ export const viewRegister =  (req,res) => {
 }
 
 export const viewProduct = async (req,res) => {
-    const session = req.session;
     const id = req.params.id;
-    const product = await productModel.findById(id).lean();
+    const product = await productsModel.findById(id).lean();
     res.status(200).render('templates/product',{session:session,product:product,css:'styles.css',js:'addToCart.js'})
 }

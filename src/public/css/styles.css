@@ -21,6 +21,8 @@ a{
 }
 .card{
     border-radius: 15px;
+    width: 40%;
+    margin: 2px;
 }
 hr{
     height: 2px;
@@ -44,10 +46,6 @@ header, footer{
 body {
     background-color: rgb(255, 229, 180);
     color: rgb(230, 149, 0);
-}
-
-.card{
-    width: 20%;
 }
 
 footer {
