@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded',()=>{
            "email":data.get('email'),
            "password":data.get('password') 
         }
-        fetch('/api/users/login',{
+        fetch('/api/sessions/login',{
             method:'POST',
             headers: {
                 "Content-Type": "application/json",

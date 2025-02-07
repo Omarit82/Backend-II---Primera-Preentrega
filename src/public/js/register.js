@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             "age": data.get('age'),
             "password": data.get('password')
         }
-        fetch('/api/users/register',{
+        fetch('/api/sessions/register',{
             method: "POST", // Método HTTP
             headers: {
               "Content-Type": "application/json", // Tipo de contenido

@@ -1,5 +1,8 @@
 import { Router } from "express";
+import { authorization } from "../config/middlewares.js";
 import { viewHome,viewNewProduct,viewProduct,viewLogin, viewRegister } from "../controllers/views.controller.js";
+import passport from "passport";
+
 const viewsRouter = Router();
 
 viewsRouter.get('/',viewHome);

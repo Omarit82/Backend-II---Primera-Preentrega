@@ -8,6 +8,13 @@ a{
     text-decoration: none;
     color:white;
 }
+
+.register{
+    color: orange;
+}
+.register:hover {
+    color:red;
+}
 .individual{
         width: 500px;
 }

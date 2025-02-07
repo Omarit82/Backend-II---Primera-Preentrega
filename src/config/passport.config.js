@@ -20,7 +20,6 @@ const cookieExtractor = (req) => {
 export const passportCall = (strategy) => {
     return async(req,res,next) => {
         passport.authenticate(strategy,function(err,user, info){
-            console.log(user)
             if (err)
                 return next(err)
             if(!user){
@@ -87,7 +86,6 @@ const initializatePassport = () => {
     },async(accessToken,refreshToken,profile,done)=>{
         try {
             let user = await userModel.findOne({email: profile._json.email})
-            console.log(profile)
             if(!user){
                 const user = await userModel.create({
                     first_name:profile._json.name,
