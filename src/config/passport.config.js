@@ -20,6 +20,7 @@ const cookieExtractor = (req) => {
 export const passportCall = (strategy) => {
     return async(req,res,next) => {
         passport.authenticate(strategy,function(err,user, info){
+            console.log(user)
             if (err)
                 return next(err)
             if(!user){
@@ -27,7 +28,7 @@ export const passportCall = (strategy) => {
             }
             req.user =user
             next()
-        }, (req,res,next))
+        } (req,res,next))
     }
 }
 
@@ -105,7 +106,12 @@ const initializatePassport = () => {
     }))
 
     passport.serializeUser((user,done)=>{
-        done(null,user._id)
+        if(user?._id){
+            done(null,user._id)
+        }else{
+            done(null,user.user._id)
+        }
+    
     })
 
     passport.deserializeUser(async(id,done)=>{
