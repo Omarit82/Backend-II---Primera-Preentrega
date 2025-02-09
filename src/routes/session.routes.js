@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { login,register, githubLogin } from "../controllers/sessions.controller.js";
-import {passportCall} from "../config/passport.config.js";
+
 
 const sessionRouter = Router();
 

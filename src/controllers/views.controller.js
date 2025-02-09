@@ -6,13 +6,13 @@ export const viewHome = async (req, res) =>{
     const lim = limit !== undefined || limit !== null ? limit:10;
     const filQuery = metFilter !== undefined ? {[metFilter]:filter}:{};
     const ordQuery = metOrder !== undefined ? {metOrder: order}:{};
-    
     const products = await productsModel.paginate(filQuery,{limit:lim,page:pag,ordQuery,lean:true});
     products.pageNumbers = Array.from({length: products.totalPages}, (_, i) => ({
         number: i + 1,
         isCurrent: i + 1 === products.page
     }))
-    res.status(200).render('templates/home',{products:products,css:'styles.css'})
+    const user = JSON.parse(JSON.stringify(req.user))
+    res.status(200).render('templates/home',{user:user,products:products,css:'styles.css'})
 }
 
 export const viewNewProduct =  (req,res) => {
@@ -30,5 +30,5 @@ export const viewRegister =  (req,res) => {
 export const viewProduct = async (req,res) => {
     const id = req.params.id;
     const product = await productsModel.findById(id).lean();
-    res.status(200).render('templates/product',{session:session,product:product,css:'styles.css',js:'addToCart.js'})
+    res.status(200).render('templates/product',{product:product,css:'styles.css',js:'addToCart.js'})
 }
