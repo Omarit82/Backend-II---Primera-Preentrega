@@ -27,7 +27,7 @@ app.use(cookieParser("SecretCode")) /**Para utilizar cookies */
 app.use(session({
     store:MongoStore.create({
         mongoUrl:"mongodb+srv://roselliomar82:piperpa11@disqueria.ngm69.mongodb.net/?retryWrites=true&w=majority&appName=disqueria",
-        ttl:15
+        ttl:30
     }),
     secret:'SecretCode',
     resave:true, /***Permite mantener la session activa. En false la session muere luego de cierto tiempo */

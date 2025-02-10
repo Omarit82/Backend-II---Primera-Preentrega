@@ -35,7 +35,6 @@ const initializatePassport = () => {
     passport.use('jwt', new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
         secretOrKey:"codercoder",
-
     }, async(jwt_payload, done)=>{
         try {
             return done(null, jwt_payload)

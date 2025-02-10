@@ -15,6 +15,15 @@ export const viewHome = async (req, res) =>{
     res.status(200).render('templates/home',{user:user,products:products,css:'styles.css'})
 }
 
+export const viewLogout = async (req,res) =>{ 
+    req.session.destroy ( error => {
+        if(error) {
+            return res.status(500).send("Unable to close session");
+        }
+        res.status(200).redirect('/login')
+    })    
+}
+
 export const viewNewProduct =  (req,res) => {
     res.status(200).render('templates/loadproduct',{css:'styles.css',js:'newproduct.js'})
 }
