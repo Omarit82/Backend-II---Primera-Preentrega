@@ -37,7 +37,15 @@ export const viewRegister =  (req,res) => {
 }
 
 export const viewProduct = async (req,res) => {
-    const id = req.params.id;
-    const product = await productsModel.findById(id).lean();
-    res.status(200).render('templates/product',{product:product,css:'styles.css',js:'addToCart.js'})
+    try {
+        const id = req.params.id;
+        const prod = await productsModel.findById(id).lean();
+        if(prod){
+            res.status(200).render('templates/product',{product:prod,css:'styles.css',js:'addToCart.js'})
+        }else{
+            res.status(404).send({message:`Product with id: ${id} not found`})
+        }
+    } catch (e) {
+        res.status(500).send({message:"Error trying to adquire product",error:e})
+    }
 }

@@ -1,3 +1,0 @@
-.tarjeta {
-    width: 33%;
-}

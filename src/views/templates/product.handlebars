@@ -11,10 +11,12 @@
             <p class="card-text">Price:${{product.price}}</p>
             <p class="card-text">Stock available: {{product.stock}}</p>
         </div>
-        <form action="" class="d-flex flex-column w-50 m-auto">
+        <form id="addToCart" action="" class="d-flex flex-column w-50 m-auto">
             <label for="quantity" class="m-auto">Quantity</label>
-            <input type="number" class="m-auto mt-3 mb-3 w-25" min="1" max="{{product.stock}}" required>
-            <a href="/product/{{product._id}}" class="m-auto"><button type="submit" class="btn btn-primary">Add to cart!</button></a>
+            <input type="number" name="quantity" class="m-auto mt-3 mb-3 w-25" min="1" max="{{product.stock}}" required>
+            <label for="product_id" class="m-auto">Product ID:</label>
+            <input type="text" name="product_id" class="m-auto mt-3 mb-3 w-100 text-center" value="{{product._id}}"readonly>
+            <button type="submit" class="btn btn-primary">Add to cart!</button>
         </form>
         
     </div>
