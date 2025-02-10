@@ -4,10 +4,18 @@
     <div class="card-body">
         <h5 class="card-title text-center mb-2">{{product.title}}</h5>
         <hr/>
-        <p class="card-text">Autor: {{product.autor}}</p>
-        <p class="card-text">Genere: {{product.genere}}</p>
-        <p class="card-text">Year: {{product.year}}</p>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between p-3">
+            <div>
+                <p class="card-text">Autor: {{product.autor}}</p>
+                <p class="card-text">Genere: {{product.genere}}</p>
+                <p class="card-text">Year: {{product.year}}</p>
+            </div>
+            <div>
+                <img src="{{product.thumbnails}}" class="card-img-top imagen" alt="">
+            </div>
+        </div>
+        <hr/>
+        <div class="d-flex justify-content-between p-3">
             <p class="card-text">Price:${{product.price}}</p>
             <p class="card-text">Stock available: {{product.stock}}</p>
         </div>

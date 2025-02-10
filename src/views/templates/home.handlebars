@@ -2,11 +2,17 @@
 <div class="d-flex flex-wrap justify-content-around">
     {{#each products.docs}}
     <div class="card" >
-        <img src="" class="card-img-top" alt="">
         <div class="card-body">
-            <h5 class="card-title">{{title}}</h5>
-            <p class="card-text">Autor: {{autor}}</p>
-            <p class="card-text">Year: {{year}}</p>
+            <div class="d-flex mb-3 justify-content-between">
+                <div class="w-50">
+                    <h5 class="card-title">{{title}}</h5>
+                    <p class="card-text">Autor: {{autor}}</p>
+                    <p class="card-text">Year: {{year}}</p>
+                </div>
+                <div class="w-50 d-flex justify-content-end">
+                    <img src="{{thumbnails}}" class="card-img-top imagen" alt="">
+                </div>
+            </div>
             <a href="/product/{{_id}}" class="btn btn-primary m-auto">View more</a>
         </div>
     </div>

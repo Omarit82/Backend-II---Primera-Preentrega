@@ -37,14 +37,16 @@ hr{
     margin:auto;
     color:black;
 }
-
+.imagen{
+    border-radius: 50%;
+    max-width: 120px;
+    border: 1px solid orange
+}
 header, footer{
     background-color: orange;
     color: white;
 }
-#thumbnail{
-    display:none;
-}
+
 
 .title {
     padding: 15px;
