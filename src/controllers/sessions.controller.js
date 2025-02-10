@@ -7,14 +7,11 @@ export const login = async(req,res)=>{
         if(!req.user){
             return res.status(401).send({message:"Usuario o contraseña incorrectos"})
         }
-
         const token = generateToken(user);
-        console.log(token);
         req.session.user = {
             email: req.user.email,
             first_name: req.user.first_name
-        }
-        
+        }        
         res.cookie('coderCookie',token,{
             httpOnly:true,
             secure:false,

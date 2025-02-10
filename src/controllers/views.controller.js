@@ -25,7 +25,8 @@ export const viewLogout = async (req,res) =>{
 }
 
 export const viewNewProduct =  (req,res) => {
-    res.status(200).render('templates/loadproduct',{css:'styles.css',js:'newproduct.js'})
+    const user = JSON.parse(JSON.stringify(req.user))
+    res.status(200).render('templates/loadproduct',{user:user,css:'styles.css',js:'newproduct.js'})
 }
 
 export const viewLogin =  (req,res) => {
@@ -41,7 +42,8 @@ export const viewProduct = async (req,res) => {
         const id = req.params.id;
         const prod = await productsModel.findById(id).lean();
         if(prod){
-            res.status(200).render('templates/product',{product:prod,css:'styles.css',js:'addToCart.js'})
+            const user = JSON.parse(JSON.stringify(req.user))
+            res.status(200).render('templates/product',{user:user,product:prod,css:'styles.css',js:'addToCart.js'})
         }else{
             res.status(404).send({message:`Product with id: ${id} not found`})
         }
