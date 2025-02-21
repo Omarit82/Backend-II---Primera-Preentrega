@@ -1,4 +1,6 @@
 import cartModel from "../models/carts.model.js";
+import productsModel from "../models/products.model.js";
+import {ticketModel} from "../models/ticket.js";
 
 export const getCart = async (req,res) => {
     try{
@@ -117,5 +119,51 @@ export const deleteCart = async(req,res) => {
         }
     } catch (error) {
         res.status(500).send({message:"Cannot delete cart",error:error});
+    }
+}
+
+export const checkout = async (req,res) =>{
+    try {
+        const cartId = req.params.cid
+        const cart = await cartModel.findById(cartId)
+        const prodStockNull = []
+        if(cart){
+            for (const prod of cart.products){
+                let product = await productsModel.findById(prod.id_prod)
+                if(product.stock - prod.quantity < 0){
+                    prodStockNull.push(product.id)
+                }
+            }
+            if(prodStockNull.length ===0){
+                let totalAmount = 0;
+                for (const prod of cart.products){
+                    const product = await productsModel.findById(prod.id_prod);
+                    if(product){
+                        product.stock = product.stock - prod.quantity
+                        totalAmount += product.price * prod.quantity
+                        await product.save() 
+                    }   
+                }
+                const newTicket = await ticketModel.create({
+                    code: crypto.randomUUID(),
+                    purchaser: req.user.email,
+                    amount: totalAmount,
+                    products: cart.products
+                })
+                await cartModel.findByIdAndUpdate(cartId,{products:[]})
+                res.status(200).send({message:"ticket created",ticket:newTicket})
+            }else{
+                //Remuevo los prod sin stock
+                prodStockNull.forEach((prodId) => {
+                    cart.products = cart.products.filter( pro => pro.id_prod !== prodId)
+                })
+                await cartModel.findByIdAndUpdate(cartId, {
+                    products: cart.products
+                })
+                res.status(400).send({message:"Stock null on products: ",products:prodStockNull})
+            }
+        }
+    } catch (error) {
+        res.status(500).send({message:"Cannot checkout",error:error});
     }
 }
