@@ -7,12 +7,9 @@ import session from 'express-session';
 import passport from 'passport';
 import { engine } from 'express-handlebars';
 import initializatePassport from './config/passport.config.js';
-import sessionRouter from './routes/session.routes.js';
-import productsRouter from './routes/products.routes.js';
-import viewsRouter from './routes/views.routes.js';
-import cartRouter from './routes/carts.routes.js';
 import __dirname from './path.js';
 import cors from 'cors';
+import indexRouter from './routes/index.routes.js';
 
 const app = express();
 const PORT = 8080;
@@ -37,10 +34,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/api/products',productsRouter);
-app.use('/api/carts',cartRouter);
-app.use('/api/sessions',sessionRouter);
-app.use('/',viewsRouter);
+
+app.use('/',indexRouter);
 
 /** Vinculo a la db */
 mongoose.connect(process.env.URL_MONGO)

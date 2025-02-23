@@ -16,6 +16,19 @@ document.addEventListener('DOMContentLoaded',()=>{
             body: JSON.stringify(user)
         }).then((response)=>{
             console.log(response);
+            Swal.fire({
+                toast:true,
+                animation: false,
+                icon:'success',
+                title: 'Login Exitoso!',
+                position: 'top-right',
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
         }).catch((error) =>{
             console.log(error);
         }).finally(()=>{

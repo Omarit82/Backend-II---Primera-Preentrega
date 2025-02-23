@@ -1,4 +1,5 @@
 import productsModel from "../models/products.model.js"
+import __dirname from '../path.js';
 
 export const viewHome = async (req, res) =>{
     const { limit,page,metFilter,filter,metOrder, order} = req.query;
@@ -11,7 +12,11 @@ export const viewHome = async (req, res) =>{
         number: i + 1,
         isCurrent: i + 1 === products.page
     }))
-    const user = JSON.parse(JSON.stringify(req.user))
+    let user;
+    if(req.user){
+        user= JSON.parse(JSON.stringify(req.user))
+    }
+    
     res.status(200).render('templates/home',{user:user,products:products,css:'styles.css'})
 }
 

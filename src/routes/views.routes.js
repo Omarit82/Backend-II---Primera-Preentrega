@@ -4,8 +4,8 @@ import { viewHome,viewNewProduct,viewProduct,viewLogin, viewRegister,viewLogout 
 
 const viewsRouter = Router();
 
-viewsRouter.get('/',authorization('User'),viewHome);
-viewsRouter.get('/product/:id',viewProduct);
+viewsRouter.get('/',viewHome);
+viewsRouter.get('/product/:id',authorization('User'),viewProduct);
 viewsRouter.get('/new-product',authorization('Admin'),viewNewProduct)
 viewsRouter.get('/login',viewLogin);
 viewsRouter.get('/register',viewRegister);

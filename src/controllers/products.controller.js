@@ -25,7 +25,7 @@ export const getProducts = async (req,res) => {
         const ordQuery = metOrder !== undefined ? {metOrder: order}:{};
 
         const prods = await productsModel.paginate(filQuery,{limit:lim,page:pag,ordQuery});
-        res.status(200).send({message:"All products:",prods:prods})
+        res.status(200).json({prods:prods})
     } catch (error) {
         res.status(500).send({message:"Error, connection lost adquiring all products",error:error})
     }
