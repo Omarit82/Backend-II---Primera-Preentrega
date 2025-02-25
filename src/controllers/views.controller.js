@@ -76,7 +76,7 @@ export const viewCheckout = async (req,res) =>{
     try {
         const user = JSON.parse(JSON.stringify(req.user))
         const cart = await cartsModel.findById(req.user.cart).lean();
-        res.status(200).render('templates/checkout',{user:user,cart:cart.products,css:'styles.css'})
+        res.status(200).render('templates/checkout',{user:user,cart:cart.products,js:'checkOut.js',css:'styles.css'})
     } catch (error) {
         res.status(500).render('templates/error',{css:'styles.css',error:error})
     }
