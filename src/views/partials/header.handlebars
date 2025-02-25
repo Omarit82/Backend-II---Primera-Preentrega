@@ -1,11 +1,15 @@
 <header class="d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center w-100 justify-content-between">
-        <a href="/"><h1 class="title">Tu disqueria</h1></a>
+        <a href="/"><h1 class="title ">Tu disqueria</h1></a>
         {{#if user}}
             <div class="d-flex align-items-center">
-                <h2 class="me-3">Bienvenido! {{user.first_name}}</h2>
-                <a href="/logout"><button class="btn btn-warning m-2">Logout</button></a>
-                <a href=" "><button class="btn btn-warning m-2"id="cart" cart_id="{{user.cart}}">My Cart</button></a>
+                <h2 class="me-3">Welcome! {{user.first_name}}</h2>
+                <a href="/api/sessions/logout"><button class="btn btn-warning m-2">Logout</button></a>
+                <a href="/checkout"><button class="btn btn-warning m-2"id="cart" cart_id="{{user.cart}}">My Cart</button></a>
+            </div>
+        {{else}}
+            <div class="d-flex align-items-center">
+                <a href="/login"><button class="btn btn-warning m-2">Login</button></a>
             </div>
         {{/if}}
     </div>

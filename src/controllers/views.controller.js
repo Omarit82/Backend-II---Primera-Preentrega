@@ -1,45 +1,60 @@
-import productsModel from "../models/products.model.js"
+import productsModel from "../models/products.model.js";
+import cartsModel from "../models/carts.model.js";
 import __dirname from '../path.js';
 
 export const viewHome = async (req, res) =>{
-    const { limit,page,metFilter,filter,metOrder, order} = req.query;
-    const pag = page !== undefined ? page:1;
-    const lim = limit !== undefined || limit !== null ? limit:10;
-    const filQuery = metFilter !== undefined ? {[metFilter]:filter}:{};
-    const ordQuery = metOrder !== undefined ? {metOrder: order}:{};
-    const products = await productsModel.paginate(filQuery,{limit:lim,page:pag,ordQuery,lean:true});
-    products.pageNumbers = Array.from({length: products.totalPages}, (_, i) => ({
-        number: i + 1,
-        isCurrent: i + 1 === products.page
-    }))
-    let user;
-    if(req.user){
-        user= JSON.parse(JSON.stringify(req.user))
+    try {
+        const { limit,page,metFilter,filter,metOrder, order} = req.query;
+        const pag = page !== undefined ? page:1;
+        const lim = limit ? parseInt(limit, 10) : 10
+        const filQuery = metFilter !== undefined ? {[metFilter]:filter}:{};
+        const ordQuery = metOrder ? {[metOrder]: order} : {};
+        const products = await productsModel.paginate(filQuery, {
+            limit: lim,
+            page: pag,
+            sort: ordQuery,
+            lean: true
+        });
+        products.pageNumbers = Array.from({length: products.totalPages}, (_, i) => ({
+            number: i + 1,
+            isCurrent: i + 1 === products.page
+        }))
+        let user;
+        if(req.user){
+            user= JSON.parse(JSON.stringify(req.user))
+        }
+        res.status(200).render('templates/home',{js:'home.js',user:user,products:products,css:'styles.css'})
+    } catch (error) {
+        res.status(500).render('templates/error',{css:'styles.css',error:e})
     }
     
-    res.status(200).render('templates/home',{user:user,products:products,css:'styles.css'})
-}
-
-export const viewLogout = async (req,res) =>{ 
-    req.session.destroy ( error => {
-        if(error) {
-            return res.status(500).send("Unable to close session");
-        }
-        res.status(200).redirect('/login')
-    })    
 }
 
 export const viewNewProduct =  (req,res) => {
-    const user = JSON.parse(JSON.stringify(req.user))
-    res.status(200).render('templates/loadproduct',{user:user,css:'styles.css',js:'newproduct.js'})
+    try {
+        const user = JSON.parse(JSON.stringify(req.user))
+        res.status(200).render('templates/loadproduct',{user:user,css:'styles.css',js:'newproduct.js'})
+    } catch (error) {
+        res.status(500).render('templates/error',{css:'styles.css',error:e})
+    }
+    
 }
 
 export const viewLogin =  (req,res) => {
-    res.status(200).render('templates/login',{css:'styles.css',js:'login.js'})
+    try {
+        res.status(200).render('templates/login',{css:'styles.css',js:'login.js'})
+    } catch (error) {
+        res.status(500).render('templates/error',{css:'styles.css',error:e})
+    }
+    
 }
 
 export const viewRegister =  (req,res) => {
-    res.status(200).render('templates/register',{css:'styles.css',js:'register.js'})
+    try {
+        res.status(200).render('templates/register',{css:'styles.css',js:'register.js'})
+    } catch (error) {
+        res.status(500).render('templates/error',{css:'styles.css',error:e})
+    }
 }
 
 export const viewProduct = async (req,res) => {
@@ -53,6 +68,16 @@ export const viewProduct = async (req,res) => {
             res.status(404).send({message:`Product with id: ${id} not found`})
         }
     } catch (e) {
-        res.status(500).send({message:"Error trying to adquire product",error:e})
+        res.status(500).render('templates/error',{css:'styles.css',error:e})
+    }
+}
+
+export const viewCheckout = async (req,res) =>{ 
+    try {
+        const user = JSON.parse(JSON.stringify(req.user))
+        const cart = await cartsModel.findById(req.user.cart).lean();
+        res.status(200).render('templates/checkout',{user:user,cart:cart.products,css:'styles.css'})
+    } catch (error) {
+        res.status(500).render('templates/error',{css:'styles.css',error:error})
     }
 }

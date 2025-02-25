@@ -1,4 +1,10 @@
-<h2 class="text-center">Nuestros discos:</h2>
+<div class="d-flex justify-content-end m-3">
+    <a href="/?metOrder=title&order=asc" class="btn btn-primary m-auto" id="btnTitle">Order By Name Ascendent</a>
+    <a href="/?metOrder=title&order=desc" class="btn btn-primary m-auto" id="btnTitle">Order By Name Descendent</a>
+    <a href="/?metOrder=price&order=desc" class="btn btn-primary m-auto">Order By Price</a>
+    <a href="/?metOrder=year&order=asc" class="btn btn-primary m-auto">Order By Year</a>
+</div>
+<h2 class="text-center fs-1 m-3">Our products:</h2>
 <div class="d-flex flex-wrap justify-content-around">
     {{#each products.docs}}
     <div class="card" >
@@ -6,7 +12,7 @@
             <div class="d-flex mb-3 justify-content-between">
                 <div class="w-50">
                     <h5 class="card-title">{{title}}</h5>
-                    <p class="card-text">Autor: {{autor}}</p>
+                    <p class="card-text m-0">Autor: {{autor}}</p>
                     <p class="card-text">Year: {{year}}</p>
                 </div>
                 <div class="w-50 d-flex justify-content-end">
@@ -19,7 +25,7 @@
     {{/each}}
 </div>
 <!--Paginacion-->
-<nav aria-label="Page Navigation">
+<nav aria-label="Page Navigation" class="mt-4">
     <ul class="pagination justify-content-center">
         {{#if products.hasPrevPage}}
         <li class="page-item">

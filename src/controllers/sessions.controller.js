@@ -46,3 +46,16 @@ export const githubLogin = (req,res) => {
         res.status(500).send({message:"Error al loguear usuario", Error:error})
     }
 }
+export const logout = async (req,res) =>{
+    try {
+        req.session.destroy ( error => {
+            if(error) {
+                return res.status(500).send("Unable to close session");
+            }
+            res.status(200).redirect('/login')
+        })    
+    } catch (error) {
+        res.status(500).send({message:"Error en el logout",error:error})
+    } 
+   
+}
