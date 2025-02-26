@@ -109,7 +109,7 @@ export const deleteProductCart = async (req,res) => {
 export const deleteCart = async(req,res) => {
     try {
         const cartId = req.params.cid;
-        const cart = await cartModel.findByIdAndDelete(cartId);
+        const cart = await cartModel.findById(cartId);
         if(cart){
             cart.products = [];
             cart.save();

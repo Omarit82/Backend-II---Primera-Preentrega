@@ -1,7 +1,35 @@
-<h2>Your Order: </h2>
-{{#each cart}}
-    <div class="" >
-        <p>{{id_prod.title}} |Quantity: <span class="qty">{{quantity}}</span> | Price: <span class="price">{{id_prod.price}}</span> |Total: <span class="total"></span></p>
-        <p>{{autor}}</p>
-    </div>
-{{/each}}
+<h2 class="text-center m-5">Your Order {{user.first_name}}:</h2>
+<table class="m-auto">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unitary Price</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Eliminate</th>
+        </tr>
+    </thead>
+    {{#each cart.products}}
+        <tbody>
+            <tr>
+                <th scope="row" class="tstyle">{{id_prod.title}}</th>
+                <td class="tstyle">{{id_prod.autor}}</td>
+                <td class="text-end tstyle"><span class="qty text-end">{{quantity}}</span></td> 
+                <td class=" text-end tstyle"><span class="price">{{id_prod.price}}</span></td>
+                <td class=" text-end tstyle">$ <span class="total"></span></td>
+                <td class="tstyle text-center"><button class="btn btn-secondary single" id="{{_id}}">Erase</button></td>
+            </tr>
+        </tbody>
+    {{/each}}
+    <tfoot>
+        <tr>
+            <th class="tstyle">Total:</th>
+            <td class="tstyle text-end" colspan="4">$ <span id="total"></span></td>
+            <td class="tstyle"><button class="btn btn-secondary btnEraseAll" id="{{cart._id}}">Erase All</button></td>
+        </tr>
+    </tfoot>
+</table>
+<div class="d-flex justify-content-center m-3">
+    <button class="btn btn-primary" id="buy">Buy now!</button>
+</div>

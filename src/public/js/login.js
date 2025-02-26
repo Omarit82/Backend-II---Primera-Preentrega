@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     icon:'success',
                     title: 'Login Exitoso!',
                     position: 'center',
-                    timer: 5000
+                    timer: 3000
                 }).then( () =>{
                     form.reset();
                     window.location.href = '/';
@@ -31,17 +31,19 @@ document.addEventListener('DOMContentLoaded',()=>{
                     icon:'error',
                     title: 'Wrong email or password',
                     position: 'center',
-                    timer: 5000
-                })
+                    timer: 3000
+                }).then(() =>{
+                    form.reset();
+                    }
+                )
             }else{
                 Swal.fire({
                     icon:'error',
                     title: 'Error',
                     position: 'center',
-                    timer: 5000
+                    timer: 3000
                 })
             }
-            
         }).catch((error) =>{
             console.log(error);
         })
