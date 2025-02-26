@@ -15,25 +15,35 @@ document.addEventListener('DOMContentLoaded',()=>{
             },
             body: JSON.stringify(user)
         }).then((response)=>{
-            console.log(response);
-            Swal.fire({
-                toast:true,
-                animation: false,
-                icon:'success',
-                title: 'Login Exitoso!',
-                position: 'top-right',
-                timer: 5000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+            if(response.status === 200){
+                Swal.fire({
+                    icon:'success',
+                    title: 'Login Exitoso!',
+                    position: 'center',
+                    timer: 5000
+                }).then( () =>{
+                    form.reset();
+                    window.location.href = '/';
+                    }
+                )
+            }else if(response.status === 401){
+                Swal.fire({
+                    icon:'error',
+                    title: 'Wrong email or password',
+                    position: 'center',
+                    timer: 5000
+                })
+            }else{
+                Swal.fire({
+                    icon:'error',
+                    title: 'Error',
+                    position: 'center',
+                    timer: 5000
+                })
+            }
+            
         }).catch((error) =>{
             console.log(error);
-        }).finally(()=>{
-            form.reset();
-            window.location.href = '/'
         })
     })
 })
