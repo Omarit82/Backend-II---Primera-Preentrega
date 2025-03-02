@@ -3,7 +3,6 @@ import { generateToken } from "../utils/jwt.js";
 export const login = async(req,res)=>{
     try {
         const user = req.user;
-        console.log(user);
         if(!req.user){
             return res.status(401).send({message:"Usuario o contraseña incorrectos"})
         }
@@ -36,11 +35,16 @@ export const register = async(req, res) => {
 
 export const githubLogin = (req,res) => {
     try {
-        
+        const token = generateToken(req.user);
         req.session.user = {
             email:req.user.email,
             first_name: req.user.first_name
-        }
+        }    
+        res.cookie('coderCookie',token,{
+            httpOnly:true,
+            secure:false,
+            maxAge:3600000
+        });
         return res.status(200).redirect("/")
     } catch (error) {
         res.status(500).send({message:"Error al loguear usuario", Error:error})

@@ -12,10 +12,9 @@ const JWTStrategy = jwt.Strategy;
 const ExtractJWT = ExtractJwt;
 
 const cookieExtractor = (req) => {
-
+    
     let token = null;
     if(req && req.cookies){
-        console.log(req)
         token = req.cookies.coderCookie
     }
     return token
@@ -107,7 +106,7 @@ const initializatePassport = () => {
     }))
 
     passport.serializeUser((user,done)=>{
-        if(user?._id){
+        if(user._id){
             done(null,user._id)
         }else{
             done(null,user.user._id)
