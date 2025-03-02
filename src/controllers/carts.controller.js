@@ -34,7 +34,8 @@ export const insertProductCart = async (req,res) =>{
         if(cart) {
             const index = cart.products.findIndex(prod => prod._id == prodID);
             if(index != -1){
-                cart.products[index].quantity = quantity;
+                cart.products[index].quantity += quantity;
+                await cartModel.findByIdAndUpdate(cartID,cart)
             }else{
                 cart.products.push({id_prod:prodID, quantity:quantity})
             }
@@ -134,7 +135,7 @@ export const checkout = async (req,res) =>{
                     prodStockNull.push(product.id)
                 }
             }
-            if(prodStockNull.length ===0){
+            if(prodStockNull.length === 0){
                 let totalAmount = 0;
                 for (const prod of cart.products){
                     const product = await productsModel.findById(prod.id_prod);

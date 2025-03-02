@@ -18,12 +18,30 @@ document.addEventListener('DOMContentLoaded',()=>{
             },
             body: JSON.stringify(payload), // Convierte el objeto en JSON
         }).then((response)=>{
-            console.log(response) // swal!
+            if(response.status === 201){
+                Swal.fire({
+                    icon:'success',
+                    title: 'User created ok',
+                    position: 'center',
+                    timer: 3000
+                }).then(() =>{
+                    form.reset();
+                    window.location.href = '/login';
+                    }
+                )// swal!
+            }else{
+                Swal.fire({
+                    icon:'error',
+                    title: 'User already exist',
+                    position: 'center',
+                    timer: 3000
+                }).then(() =>{
+                    form.reset();
+                    }
+                )
+            }
         }).catch((e)=>{
-            console.log(e) // swal
-        }).finally(()=>{
-            form.reset()
-            window.location.href = '/login'
+            console.log(e)
         })
     })
 })

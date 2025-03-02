@@ -76,6 +76,24 @@ export const viewCheckout = async (req,res) =>{
     try {
         const user = JSON.parse(JSON.stringify(req.user))
         const cart = await cartsModel.findById(req.user.cart).lean();
+        const prodStockNull = []
+        if(cart){
+            for (const prod of cart.products){
+                let product = await productsModel.findById(prod.id_prod)
+                if(product.stock - prod.quantity < 0){
+                    prodStockNull.push(product.id)
+                }
+            }
+            if(prodStockNull.length !==0){
+                //Remuevo los prod sin stock
+                prodStockNull.forEach((prodId) => {
+                    cart.products = cart.products.filter( pro => pro.id_prod !== prodId)
+                })
+                await cartsModel.findByIdAndUpdate(cart, {
+                    products: cart.products
+                })
+            }
+        }
         res.status(200).render('templates/checkout',{user:user,cart:cart,js:'checkOut.js',css:'styles.css'})
     } catch (error) {
         res.status(500).render('templates/error',{css:'styles.css',error:error})

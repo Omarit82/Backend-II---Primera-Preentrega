@@ -12,9 +12,11 @@ const JWTStrategy = jwt.Strategy;
 const ExtractJWT = ExtractJwt;
 
 const cookieExtractor = (req) => {
+
     let token = null;
     if(req && req.cookies){
-        token = req.cookies['coderCookie']
+        console.log(req)
+        token = req.cookies.coderCookie
     }
     return token
 }
@@ -36,7 +38,7 @@ export const passportCall = (strategy) => {
 const initializatePassport = () => {
     passport.use('jwt', new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: process.env.SECRET_JWT,
+        secretOrKey:process.env.SECRET_JWT
     }, async(jwt_payload, done)=>{
         try {
             return done(null, jwt_payload)
@@ -82,17 +84,17 @@ const initializatePassport = () => {
     }))
     passport.use('github',new GithubStrategy({
         clientID:"Iv23litqAUVWDwraaDwo",
-        clientSecret:process.env.SECRET_GITHUB,
+        clientSecret: process.env.SECRET_GITHUB,
         callbackURL: "http://localhost:8080/api/sessions/githubcallback"
     },async(accessToken,refreshToken,profile,done)=>{
         try {
             let user = await userModel.findOne({email: profile._json.email})
             if(!user){
-                const user = await userModel.create({
+                user = await userModel.create({
                     first_name:profile._json.name,
                     last_name:" ", // Dato no proporcionado
                     email:profile._json.email,
-                    password:'1234', //Dato no proporcionado
+                    password:encriptar('1234'), //Dato no proporcionado
                     age:18 //Dato no proporcionado
                 })
                 done(null,user)
@@ -100,7 +102,7 @@ const initializatePassport = () => {
                 done(null, user)
             }
         } catch (error) {
-            return done(e)
+            done(error,null)
         }
     }))
 

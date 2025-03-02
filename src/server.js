@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import MongoStore from 'connect-mongo';
@@ -10,6 +10,7 @@ import initializatePassport from './config/passport.config.js';
 import __dirname from './path.js';
 import cors from 'cors';
 import indexRouter from './routes/index.routes.js';
+dotenv.config()
 
 const app = express();
 const PORT = 8080;

@@ -51,7 +51,10 @@ document.addEventListener('DOMContentLoaded',()=>{
                         title: 'Product Erased!',
                         position: 'center',
                         timer: 3000
-                    })
+                    }).then(()=>{
+                        window.location.href = '/checkout';
+                    }
+                    )
                 }else {
                     Swal.fire({
                         icon:'error',
