@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             headers: {
                 "Content-Type": "application/json",
             }
-        }).then((response)=>{
+        }).then(async (response)=>{
             if(response.status === 200){
                 Swal.fire({
                     icon:'success',
@@ -94,12 +94,24 @@ document.addEventListener('DOMContentLoaded',()=>{
                     }
                 )
             }else {
-                Swal.fire({
-                    icon:'error',
-                    title: 'Error',
-                    position: 'center',
-                    timer: 3000
-                })
+                const data = await response.json();
+                for (const id of data.products) {
+                    fetch(`api/products/${id}`,{
+                        method:'GET'
+                    }).then(async(response)=>{
+                        const res = await response.json();
+                        console.log(res.prod)
+                        Swal.fire({
+                            icon:'error',
+                            title: 'Product out of stock!',
+                            text: `${res.prod.autor}, ${res.prod.title}`,
+                            footer: 'The item will be erased from the cart',
+                            position: 'center',
+                            timer: 3000
+                        })
+                    })
+                }
+                window.location.href = '/';
             }
         }).catch((error)=>{
             Swal.fire({

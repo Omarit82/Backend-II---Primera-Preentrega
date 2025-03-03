@@ -132,7 +132,7 @@ export const checkout = async (req,res) =>{
         if(cart){
             for (const prod of cart.products){
                 let product = await productsModel.findById(prod.id_prod)
-                if(product.stock - prod.quantity < 0){
+                if(product.stock < prod.quantity){
                     prodStockNull.push(product.id)
                 }
             }
@@ -157,7 +157,7 @@ export const checkout = async (req,res) =>{
             }else{
                 //Remuevo los prod sin stock
                 prodStockNull.forEach((prodId) => {
-                    cart.products = cart.products.filter( pro => pro.id_prod !== prodId)
+                    cart.products = cart.products.filter( pro => pro.id_prod._id != prodId)
                 })
                 await cartModel.findByIdAndUpdate(cartId, {
                     products: cart.products
