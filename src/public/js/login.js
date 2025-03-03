@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     icon:'success',
                     title: 'Login Exitoso!',
                     position: 'center',
-                    timer: 3000
+                    timer: 1500
                 }).then( () =>{
                     form.reset();
                     window.location.href = '/';
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                     icon:'error',
                     title: 'Wrong email or password',
                     position: 'center',
-                    timer: 3000
+                    timer: 1500
                 }).then(() =>{
                     form.reset();
                     }

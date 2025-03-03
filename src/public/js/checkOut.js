@@ -63,7 +63,15 @@ document.addEventListener('DOMContentLoaded',()=>{
                         timer: 3000
                     })
                 }
-            })
+            }).catch((error) => {
+                Swal.fire({
+                    icon:'error',
+                    title: 'Error: '+error,
+                    position: 'center',
+                    timer: 3000
+                    })
+                }
+            )
         })
     });
 
@@ -93,6 +101,13 @@ document.addEventListener('DOMContentLoaded',()=>{
                     timer: 3000
                 })
             }
+        }).catch((error)=>{
+            Swal.fire({
+                icon:'error',
+                title: 'Error: '+error,
+                position: 'center',
+                timer: 3000
+            })
         })
     })
 })

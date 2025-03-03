@@ -21,12 +21,29 @@ document.addEventListener('DOMContentLoaded',()=>{
             },
             body: JSON.stringify(payload), // Convierte el objeto en JSON
         }).then((response)=>{
-            console.log(response)  // swal
+            if(response.status === 200) {
+                Swal.fire({
+                    icon:'success',
+                    title: 'Product added!',
+                    position: 'center',
+                    timer: 1500
+                }).then( () =>{
+                    prod.reset();
+                    window.location.href = '/';
+                    }
+                )
+            }
         }).catch((e)=>{
-            console.log(e)  // swal
-        }).finally(()=>{
-            prod.reset()
+            Swal.fire({
+                icon:'error',
+                title: 'Fail to add product!',
+                position: 'center',
+                timer: 1500
+            }).then( () =>{
+                prod.reset();
+                window.location.href = '/';
+                }
+            )
         })
-
     })
 })

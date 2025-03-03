@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     "use strict";
-
     const formulario = document.getElementById('addToCart');
     const cartId = document.getElementById('cart');    
     formulario.addEventListener('submit',(event)=>{
         event.preventDefault();
         const data = new FormData(formulario); 
-        console.log(parseInt(data.get('quantity')));
         const payload= {
             quantity:parseInt(data.get('quantity'))
         }
@@ -17,12 +15,37 @@ document.addEventListener('DOMContentLoaded', ()=>{
             },
             body: JSON.stringify(payload)
         }).then((response)=>{
-            console.log(response);
+            if(response.status == 200){
+                Swal.fire({
+                    icon:'success',
+                    title: 'Product Added!',
+                    position: 'center',
+                    timer: 1500
+                }).then(()=>{
+                    window.location.href = '/';
+                    }
+                )
+            } else {
+                Swal.fire({
+                    icon:'error',
+                    title: 'Fail to add product!',
+                    position: 'center',
+                    timer: 1500
+                }).then(()=>{
+                    window.location.href = '/';
+                    }
+                )
+            }
         }).catch((error) =>{
-            console.log(error);
-        }).finally(()=>{
-            formulario.reset();
-            window.location.href = '/'
+            Swal.fire({
+                icon:'error',
+                title: 'Error!: '+error,
+                position: 'center',
+                timer: 3000
+            }).then(()=>{
+                window.location.href = '/';
+                }
+            );
         })
        
     })

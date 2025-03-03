@@ -31,15 +31,16 @@ export const insertProductCart = async (req,res) =>{
         const prodID = req.params.pid;
         const  { quantity } = req.body;
         const cart = await cartModel.findOne({_id:cartID});
+       
         if(cart) {
-            const index = cart.products.findIndex(prod => prod._id == prodID);
+            const index = cart.products.findIndex(prod => prod.id_prod._id == prodID);
             if(index != -1){
                 cart.products[index].quantity += quantity;
                 await cartModel.findByIdAndUpdate(cartID,cart)
             }else{
                 cart.products.push({id_prod:prodID, quantity:quantity})
+                await cartModel.findByIdAndUpdate(cartID,cart)
             }
-            const resp = await cartModel.findByIdAndUpdate(cartID,cart)
             res.status(200).send({message:"Cart updated"})
         }else{
             res.status(404).send({message:"Cart not found"})
