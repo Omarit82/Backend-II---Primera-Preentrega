@@ -10,8 +10,8 @@ import initializatePassport from './config/passport.config.js';
 import __dirname from './path.js';
 import cors from 'cors';
 import indexRouter from './routes/index.routes.js';
-dotenv.config()
 
+dotenv.config()
 const app = express();
 const PORT = 8080;
 initializatePassport();
@@ -20,7 +20,6 @@ app.set('views',__dirname+'/views');
 app.set('view engine','handlebars');
 app.use('/public',express.static(__dirname+'/public'));
 app.use(cors())
-
 app.use(express.json());
 app.use(cookieParser(process.env.SECRET_COOKIE)) /**Para utilizar cookies */
 app.use(session({

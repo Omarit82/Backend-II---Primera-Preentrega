@@ -37,6 +37,9 @@ a{
     width: 40%;
     margin: 2px;
 }
+.ticket{
+    color:black;
+}
 hr{
     height: 2px;
     width: 75%;

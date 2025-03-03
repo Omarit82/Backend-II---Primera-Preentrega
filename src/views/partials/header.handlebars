@@ -6,6 +6,9 @@
                 <h2 class="me-3">Welcome! {{user.first_name}}</h2>
                 <a href="/api/sessions/logout"><button class="btn btn-warning m-2">Logout</button></a>
                 <a href="/checkout"><button class="btn btn-warning m-2"id="cart" cart_id="{{user.cart}}">My Cart</button></a>
+                {{#if user.admin}}
+                    <a href="/administrate"><button class="btn btn-warning m-2">Admin</button></a>
+                {{/if}}
             </div>
         {{else}}
             <div class="d-flex align-items-center">

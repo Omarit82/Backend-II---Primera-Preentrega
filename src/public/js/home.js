@@ -5,9 +5,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
             method: 'GET'
         });
         if(products.status === 200){
-            const data = await products.json();
-            console.log(data);
-            
+            const data = await products.json();          
         }
     } catch (error) {
         console.log('Error al cargar los productos')

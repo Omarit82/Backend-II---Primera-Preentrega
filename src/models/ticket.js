@@ -10,6 +10,10 @@ const ticketSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    amount: {
+        type: Number,
+        required:true
+    },
     purchaser: {
         type: String,
         required: true

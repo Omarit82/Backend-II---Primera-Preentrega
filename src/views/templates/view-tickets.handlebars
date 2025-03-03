@@ -1,0 +1,16 @@
+<h3 class="text-center m-3">Tickets:</h3>
+{{#each tickets}}
+    <div class="card-body m-2 ticket" >
+        <div class="d-flex mb-3 justify-content-between">
+            <div class="w-100 d-flex justify-content-between">
+                <h4>Purchaser: {{purchaser}}</h4>
+                <h4>Amount: ${{amount}}</h4>
+                <div>
+                    {{#each products}}
+                        <p>ID: {{id_prod}} Qty: {{quantity}}</p>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+{{/each}}

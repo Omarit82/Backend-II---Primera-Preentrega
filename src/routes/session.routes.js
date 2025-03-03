@@ -12,4 +12,5 @@ sessionRouter.get('/githubcallback',passport.authenticate('github',{failureRedir
 sessionRouter.get('/current',passport.authenticate('jwt'), (req,res)=> res.send(req.user)) /*passportCall('jwt')*/
 sessionRouter.get('/logout',logout);
 
+
 export default sessionRouter;

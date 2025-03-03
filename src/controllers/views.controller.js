@@ -1,6 +1,7 @@
 import productsModel from "../models/products.model.js";
 import cartsModel from "../models/carts.model.js";
 import __dirname from '../path.js';
+import { ticketModel } from "../models/ticket.js";
 
 export const viewHome = async (req, res) =>{
     try {
@@ -54,6 +55,23 @@ export const viewRegister =  (req,res) => {
         res.status(200).render('templates/register',{css:'styles.css',js:'register.js'})
     } catch (error) {
         res.status(500).render('templates/error',{css:'styles.css',error:e})
+    }
+}
+
+export const viewAdministrate = async(req, res) =>{
+    try {
+        res.status(200).render('templates/administrate',{css:'styles.css'})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const viewTickets = async(req,res) => {
+    try {
+        const tickets = await ticketModel.find().lean();
+        res.status(200).render('templates/view-tickets',{css:'styles.css',tickets:tickets})
+    } catch (error) {
+        console.log(error)
     }
 }
 
