@@ -60,7 +60,17 @@ export const viewRegister =  (req,res) => {
 
 export const viewAdministrate = async(req, res) =>{
     try {
-        res.status(200).render('templates/administrate',{css:'styles.css'})
+        const user = JSON.parse(JSON.stringify(req.user))
+        res.status(200).render('templates/administrate',{user:user,css:'styles.css'})
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const viewStock = async(req,res) => {
+    try {
+        const products = await productsModel.find().lean();
+        const user = JSON.parse(JSON.stringify(req.user));
+        res.status(200).render('templates/view-stock',{user:user,products:products,css:'styles.css',js:'stock.js'});
     } catch (error) {
         console.log(error)
     }
@@ -69,7 +79,8 @@ export const viewAdministrate = async(req, res) =>{
 export const viewTickets = async(req,res) => {
     try {
         const tickets = await ticketModel.find().lean();
-        res.status(200).render('templates/view-tickets',{css:'styles.css',tickets:tickets})
+        const user = JSON.parse(JSON.stringify(req.user))
+        res.status(200).render('templates/view-tickets',{user:user,css:'styles.css',tickets:tickets})
     } catch (error) {
         console.log(error)
     }
