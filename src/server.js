@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser(process.env.SECRET_COOKIE)) /**Para utilizar cookies */
 app.use(session({
     store:MongoStore.create({
-        mongoUrl:process.env.URL_MONGO,
+        mongoUrl:"mongodb+srv://roselliomar82:piperpa11@disqueria.ngm69.mongodb.net/?retryWrites\=true&w\=majority&appName\=disqueria",
         ttl:60*60*24
     }),
     secret:process.env.SECRET_SESSION,
@@ -41,8 +41,10 @@ app.use('/',indexRouter);
 mongoose.connect(process.env.URL_MONGO)
 .then(()=>{
     console.log("DB connected");
+    console.log(process.env.URL_MONGO);
 }).catch(() => {
     console.log("DB Connection error!");
+    console.log(process.env.URL_MONGO);
 })
 
 app.listen(PORT,()=>{
