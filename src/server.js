@@ -41,11 +41,9 @@ app.use('/',indexRouter);
 mongoose.connect(process.env.URL_MONGO)
 .then(()=>{
     console.log("DB connected");
-    console.log(process.env.URL_MONGO);
-}).catch(() => {
-    console.log("DB Connection error!");
-    console.log(process.env.URL_MONGO);
-})
+}).catch((error) => {
+    console.error("❌ DB Connection error:", error);
+});
 
 app.listen(PORT,()=>{
     console.log('Server on PORT: ',PORT);
